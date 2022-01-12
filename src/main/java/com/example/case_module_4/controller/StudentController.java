@@ -106,11 +106,20 @@ public class StudentController {
                 Student student = studentService.findByUser(user).get();
                 students.add(student);
             }
-
-
-
         }
         return new ResponseEntity<>(students, HttpStatus.OK);
+    }
+
+    @GetMapping("/username/{username}")
+    public ResponseEntity<Student> findByUsername(@PathVariable String username){
+        Optional<User> userOptional = userService.findByUsername(username);
+        if(!userOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+        }
+        Optional<Student> studentOptional = studentService.findByUser(userOptional.get());
+        return studentOptional.map(student -> new ResponseEntity<>(student, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+
     }
 
 

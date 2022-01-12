@@ -4,6 +4,7 @@ function showUserHomePage(){
     let role = currentUser.roles[0].authority
     let avatar = currentUser.avatar
     let name = currentUser.name
+    let username = currentUser.username
     console.log(role);
     let str
     if(role == "ROLE_ADMIN"){
@@ -155,6 +156,294 @@ function showUserHomePage(){
         </div>
     </div>`
 
+    }else if(role == "ROLE_STUDENT"){
+        str =`    <div class="header">
+
+        <div class="header-left">
+            <a class="logo">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo">
+            </a>
+            <a class="logo logo-small">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo" width="30" height="30">
+            </a>
+        </div>
+
+        <a href="javascript:void(1);" id="toggle_btn">
+            <i class="bi bi-list-task"></i>
+        </a>
+
+        
+
+
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+
+
+        <ul class="nav user-menu">
+
+
+
+            <li class="nav-item dropdown has-arrow">
+                <a 
+                   class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                    <span class="user-img"><img class="rounded-circle" src="${avatar}" width="31"
+                                                alt="${name}"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="${avatar}" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>${name}</h6>
+                            <p class="text-muted mb-0">Student</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item"
+                       onclick="showMyAccount()">My Profile</a>
+                    
+                    <a class="dropdown-item"
+                       onclick="logOut()">Logout</a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <div>
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span></span>
+                        </li>
+                        
+                        <li class="submenu">
+                            <a class="active subdrop" onclick="showStudentByUsername()"><i class="fas fa-user-graduate"></i> <span> My information</span>
+                                <span class="menu-arrow"></span></a>
+                            
+                        </li>
+                        
+
+                    </ul>
+                </div>
+            </div>
+            <div class="slimScrollBar"></div>
+            <div class="slimScrollRail"></div>
+        </div>
+    </div>
+
+    <!--CONTENT-->
+    <!--                        CONTENT TITLE-->
+    <div class="page-wrapper" style="min-height: 468px;">
+        <div class="content container-fluid">
+
+            <!--            CONTENT -->
+
+
+            <div class="row" id="contentArea"></div>
+
+            <!--            END CONTENT -->
+        </div>
+    </div>`
+    }else if(role == "ROLE_PARENT"){
+        str =`    <div class="header">
+
+        <div class="header-left">
+            <a class="logo">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo">
+            </a>
+            <a class="logo logo-small">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo" width="30" height="30">
+            </a>
+        </div>
+
+        <a href="javascript:void(1);" id="toggle_btn">
+            <i class="bi bi-list-task"></i>
+        </a>
+
+        
+
+
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+
+
+        <ul class="nav user-menu">
+
+
+
+            <li class="nav-item dropdown has-arrow">
+                <a 
+                   class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                    <span class="user-img"><img class="rounded-circle" src="${avatar}" width="31"
+                                                alt="${name}"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="${avatar}" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>${name}</h6>
+                            <p class="text-muted mb-0">Parent</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item"
+                       onclick="showMyAccount()">My Profile</a>
+                    
+                    <a class="dropdown-item"
+                       onclick="logOut()">Logout</a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <div>
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span></span>
+                        </li>
+                        
+                        <li class="submenu">
+                            <a class="active subdrop" onclick="showMyChildren()"><i class="fas fa-user-graduate"></i> <span> My children</span>
+                                <span class="menu-arrow"></span></a>
+                            
+                        </li>
+                        
+
+                    </ul>
+                </div>
+            </div>
+            <div class="slimScrollBar"></div>
+            <div class="slimScrollRail"></div>
+        </div>
+    </div>
+
+    <!--CONTENT-->
+    <!--                        CONTENT TITLE-->
+    <div class="page-wrapper" style="min-height: 468px;">
+        <div class="content container-fluid">
+
+            <!--            CONTENT -->
+
+
+            <div class="row" id="contentArea"></div>
+
+            <!--            END CONTENT -->
+        </div>
+    </div>`
+    }else if(role == "ROLE_TEACHER"){
+        str =`    <div class="header">
+
+        <div class="header-left">
+            <a class="logo">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo">
+            </a>
+            <a class="logo logo-small">
+                <img src="https://png.pngtree.com/png-clipart/20201208/ourlarge/pngtree-school-building-cartoon-school-school-building-png-image_2472278.jpg"
+                     alt="Logo" width="30" height="30">
+            </a>
+        </div>
+
+        <a href="javascript:void(1);" id="toggle_btn">
+            <i class="bi bi-list-task"></i>
+        </a>
+
+        
+
+
+        <a class="mobile_btn" id="mobile_btn">
+            <i class="fas fa-bars"></i>
+        </a>
+
+
+        <ul class="nav user-menu">
+
+
+
+            <li class="nav-item dropdown has-arrow">
+                <a 
+                   class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                    <span class="user-img"><img class="rounded-circle" src="${avatar}" width="31"
+                                                alt="${name}"></span>
+                </a>
+                <div class="dropdown-menu">
+                    <div class="user-header">
+                        <div class="avatar avatar-sm">
+                            <img src="${avatar}" alt="User Image" class="avatar-img rounded-circle">
+                        </div>
+                        <div class="user-text">
+                            <h6>${name}</h6>
+                            <p class="text-muted mb-0">Teacher</p>
+                        </div>
+                    </div>
+                    <a class="dropdown-item"
+                       onclick="showMyAccount()">My Profile</a>
+                    
+                    <a class="dropdown-item"
+                       onclick="logOut()">Logout</a>
+                </div>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <div>
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">
+                            <span></span>
+                        </li>
+                        
+                        <li class="submenu">
+                            <a class="active subdrop" onclick="showMyClass()"><i class="fas fa-user-graduate"></i> <span> My class</span>
+                                <span class="menu-arrow"></span></a>
+                            
+                        </li>
+                        
+
+                    </ul>
+                </div>
+            </div>
+            <div class="slimScrollBar"></div>
+            <div class="slimScrollRail"></div>
+        </div>
+    </div>
+
+    <!--CONTENT-->
+    <!--                        CONTENT TITLE-->
+    <div class="page-wrapper" style="min-height: 468px;">
+        <div class="content container-fluid">
+
+            <!--            CONTENT -->
+
+
+            <div class="row" id="contentArea"></div>
+
+            <!--            END CONTENT -->
+        </div>
+    </div>`
     }
 
 

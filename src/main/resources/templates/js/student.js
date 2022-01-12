@@ -480,3 +480,44 @@ function search() {
         }
     })
 }
+
+function showStudentByUsername(){
+   let user = JSON.parse( localStorage.getItem("user"))
+    let username = user.username
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/api/students/username/'+username,
+
+        success: function (data) {
+            showStudentDetails(data.id)
+
+        }
+    })
+
+}
+
+function showMyChildren() {
+    let user = JSON.parse(localStorage.getItem("user"))
+    let username = user.username
+    let id = user.id
+    let name = user.name
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/api/parents/findByUser/' + id,
+
+        success: function (parent) {
+            let parentId = parent.id
+
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/api/students/parents/' + parentId,
+
+                success: function (students) {
+                    showStudents(name + "'s children",students)
+
+
+                }
+            })
+        }
+    })
+}

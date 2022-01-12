@@ -47,7 +47,7 @@ function showClasses(classes) {
         let clazz = classes[i]
         console.log(clazz)
         let id = clazz.id;
-        let name = ""+clazz.name
+        let name = "" + clazz.name
         let grade = clazz.grade
         let status
         if (clazz.active) {
@@ -322,5 +322,28 @@ function showFormAddClass() {
         }
     })
 
+
+}
+
+function showMyClass() {
+    let user = JSON.parse(localStorage.getItem("user"))
+    let username = user.username
+    let id = user.id
+    let name = user.name
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:8080/api/teachers/findByUser/' + id,
+        success: function (teacher) {
+            let teacherId = teacher.id
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8080/api/classes/teachers/' + teacherId,
+                success: function (classes) {
+                    showClasses(classes)
+                }
+
+            })
+        }
+    })
 
 }

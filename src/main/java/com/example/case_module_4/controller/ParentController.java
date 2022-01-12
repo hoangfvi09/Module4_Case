@@ -3,6 +3,7 @@ package com.example.case_module_4.controller;
 import com.example.case_module_4.model.Parent;
 import com.example.case_module_4.model.User;
 import com.example.case_module_4.service.IParentService;
+import com.example.case_module_4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class ParentController {
     @Autowired
     IParentService iParentService;
+    @Autowired
+    IUserService userService;
 
     @GetMapping("")
     public ResponseEntity<Iterable<Parent>> findAll() {
@@ -53,5 +56,11 @@ public class ParentController {
         user.setFullName(newName);
         parent.setUser(user);
         return new ResponseEntity<>(iParentService.save(parent),HttpStatus.OK);
+    }
+//    http://localhost:8080/api/parents/findByUser/136
+    @GetMapping("/findByUser/{id}")
+    public ResponseEntity<Parent> findParentByUserId(@PathVariable Long id){
+        User user = userService.findById(id).get();
+        return new ResponseEntity<>(iParentService.findByUser(user).get(),HttpStatus.OK);
     }
 }

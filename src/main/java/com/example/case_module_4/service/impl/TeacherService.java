@@ -1,6 +1,7 @@
 package com.example.case_module_4.service.impl;
 
 import com.example.case_module_4.model.Teacher;
+import com.example.case_module_4.model.User;
 import com.example.case_module_4.repository.TeacherRepository;
 import com.example.case_module_4.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class TeacherService implements ITeacherService {
     @Override
     public void remove(Long id) {
 teacherRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Teacher> findByUser(User user) {
+        return teacherRepository.findByUser(user);
     }
 }

@@ -2,7 +2,9 @@ package com.example.case_module_4.controller;
 
 import com.example.case_module_4.model.Clazz;
 import com.example.case_module_4.model.Teacher;
+import com.example.case_module_4.model.User;
 import com.example.case_module_4.service.ITeacherService;
+import com.example.case_module_4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class TeacherController {
     @Autowired
     ITeacherService teacherService;
+    @Autowired
+    IUserService userService;
     @GetMapping("")
     public ResponseEntity<Iterable<Teacher>> findAll(){
         if (teacherService.findAll() == null) {
@@ -42,5 +46,12 @@ public class TeacherController {
     public ResponseEntity<Teacher> findOne(@PathVariable Long id){
         Optional<Teacher> teacher=teacherService.findById(id);
         return new ResponseEntity<>(teacher.get(),HttpStatus.OK);
+    }
+
+    @GetMapping("/findByUser/{id}")
+    public ResponseEntity<Teacher> findByUser(@PathVariable Long id){
+        User user = userService.findById(id).get();
+        Teacher teacher = teacherService.findByUser(user).get();
+        return new ResponseEntity<>(teacher,HttpStatus.OK);
     }
 }
